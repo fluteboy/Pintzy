@@ -1,17 +1,17 @@
 <?php
 
-class Login extends Dbh
+use App\Foundation;
+
+class Login
 {
     protected function getUser($userName, $pass)
     {
-        $pdo = $this->connect();
+        
 
         try {
-            $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
-            $stmt->execute([$userName, $userName]);
 
-            $user = $stmt->fetch();
-
+            $user = Foundation::db()->fetchOne("SELECT * FROM users WHERE username = ? OR email = ?", [$userName, $userName]);
+            
             if ($user && password_verify($pass, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['loginSuccessful'] = true;

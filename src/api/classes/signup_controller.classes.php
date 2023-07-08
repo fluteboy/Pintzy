@@ -24,69 +24,57 @@ class SignupController extends Signup
 
         //empty input
         if ($this->emptyInput() == false) {
-
-            header("location:../../api/signup-form.php?error=empty input");
-            exit();
+            $this->setError("empty input");
         }
 
         //empty nam
         if($this->nameIsEmpty() == true) {
-            header("location:../../api/signup-form.php?error=name is required");
-            exit();
+            $this->setError("name is required");
         }
 
         //user validity
         if ($this->nameValidation() == false) {
-
-            header("location:../../api/signup-form.php?error=invalid username");
-            exit();
+            $this->setError("invalid username");
         }
 
         if($this->emailIsEmpty() == true) {
-            header("location:../../api/signup-form.php?error=email is required");
-            exit();
-
+            $this->setError("email is required");
         }
 
         //email validation
         if ($this->emailValidation() == false) {
-
-            header("location:../../api/signup-form.php?error=invalid email");
-            exit();
+            $this->setError("invalid Email");
         }
+
         //pass is empty
         if ($this->passIsEmpty()== true) {
-
-            header("location:../../api/signup-form.php?error=password is required");
-            exit();
+            $this->setError("password is required");
         }
 
         //repass empty
         if($this->rePassIsEmtpy() == true) {
-            
-            header("location:../../api/signup-form.php?error=confirm password");
-            exit();
+            $this->setError("confirm password");
         }
 
 
         //repass match
         if ($this->repassValidation() == false) {
-
-            header("location:../../api/signup-form.php?error=passwords do not match");
-            exit();
+            $this->setError("passwords do not match");
         }
+
         //userName or pass exists
-        if ($this->userIsTaken() == false) {
-
-            header("location:../../api/signup-form.php?error=user already exists");
-            exit();
+        if ($this->userIsTaken()) {
+            $this->setError("user already exists");
         }
 
-        
-
-
+    
         $this->setUser($this->name, $this->email, $this->pass);
+    }
 
+    private function setError(string $error)
+    {
+        header("location:../../api/signup-form.php?error=$error");
+        exit();
     }
 
     //validate for empty inputs

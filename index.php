@@ -17,7 +17,8 @@ $pathToFaMin = './src/style/fontawesome/fontawesome.min.css';
 $pathToJs = './src/js/view/Auth.view.js';
 $pageTitle = 'login';
 
-include './src/api/layout/header-auth.php';
+require './src/api/layout/header-auth.php';
+require "./startup.php";
 
 ?>
 

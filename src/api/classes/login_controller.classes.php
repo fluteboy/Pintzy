@@ -25,18 +25,15 @@ class LoginController extends login
 
 public function loginUser()
 {
-    if ($this->nameIsEmpty() && $this->loginPassIsEmpty()) {
+    
+    if ($this->nameIsEmpty()) {
         $this->nameValidationMessage = "Name is required. ";
-        $this->passwordValidationMessage = "Password is required. ";
-    } else {
-        if ($this->nameIsEmpty()) {
-            $this->nameValidationMessage = "Name is required. ";
-        }
-
-        if ($this->loginPassIsEmpty()) {
-            $this->passwordValidationMessage = "Password is required. ";
-        }
     }
+
+    if ($this->loginPassIsEmpty()) {
+        $this->passwordValidationMessage = "Password is required. ";
+    }
+    
 
     if (!empty($this->nameValidationMessage) || !empty($this->passwordValidationMessage)) {
         header("location:../../../index.php?loginError=&nameValidationMessage=". urlencode($this->nameValidationMessage). "&passwordValidationMessage=". urlencode($this->passwordValidationMessage));
